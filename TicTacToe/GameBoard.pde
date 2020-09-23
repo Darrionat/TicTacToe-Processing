@@ -1,9 +1,18 @@
 public class GameBoard {
 
+  private TurnRepository turns; 
+
+  public GameBoard(TurnRepository turns) {
+    this.turns = turns;
+  }
+
   private String[] board = {"", "", "", "", "", "", "", "", ""};
 
-
-  public GameBoard() {
+  public void draw() {
+    line(width/3, 0, width/3, height); 
+    line(2*width/3, 0, 2*width/3, height);
+    line(0, height/3, width, height/3);
+    line(0, 2*height/3, width, 2*height/3);
   }
 
   public String[] getBoard() {
@@ -38,13 +47,25 @@ public class GameBoard {
 
       textSize(50);
       textAlign(CENTER);
+      fill(36, 191, 242);
       text(square, x, y);
     }
   }
 
-  public void clear() {
+  public boolean boardIsFull() {
+    for (String square : board) {
+      if (square.equals(""))
+        return false;
+    }
+    return true;
+  }
+
+  public void reset() {
     for (int i = 1; i <= 9; i++) {
       setValue(i, "");
     }
+    turns.setCurrentPlayer(playerOne);
+    background(200);
+    draw();
   }
 }
