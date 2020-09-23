@@ -1,9 +1,13 @@
 void keyPressed() {
   if (key == ' ')
     board.reset();
+  gameOver = false;
 }
 
+boolean gameOver = false;
 void mouseClicked() {
+  if (gameOver) return;
+
   int clickedRegion = getClickedSquare();
   if (!board.squareAvailable(clickedRegion))
     return;
@@ -22,12 +26,14 @@ void mouseClicked() {
       fill(255, 0, 0);
     textSize(50);
     text("Player "+ winPlayer.id + " has won!", width/2, height/2);
+    gameOver = true;
     return;
   }
   if (board.boardIsFull()) {
     fill(255, 230, 0);
     textSize(50);
-    text("Cat!", width/2, height/2);
+    text("Tie!", width/2, height/2);
+    gameOver = true;
     return;
   }
 

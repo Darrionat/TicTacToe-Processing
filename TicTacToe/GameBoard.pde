@@ -45,7 +45,7 @@ public class GameBoard {
       if (i == 7 || i == 8 || i == 9)
         y = 5*height/6;
 
-      textSize(50);
+      textSize(100);
       textAlign(CENTER);
       fill(36, 191, 242);
       text(square, x, y);
