@@ -6,21 +6,21 @@ void keyPressed() {
 
 boolean gameOver = false;
 void mouseClicked() {
-  if (gameOver) return;
+  if (gameOver) 
+    return;
+  if (turns.getCurrentPlayer() == playerTwo)
+    return;
 
   int clickedRegion = getClickedSquare();
   if (!board.squareAvailable(clickedRegion))
     return;
-  String marker = "X";
-  if (turns.getCurrentPlayer() == playerTwo)
-    marker = "O";
 
-  board.setValue(clickedRegion, marker);
+  board.setValue(clickedRegion, "X");
   board.updateBoard();
 
   Player winPlayer = winLose.playerWon();
   if (winPlayer != null) {
-    textAlign(CENTER);
+    textAlign(CENTER, CENTER);
     fill (0, 255, 0);
     if (winPlayer.id == 2) 
       fill(255, 0, 0);
