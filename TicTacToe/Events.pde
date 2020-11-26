@@ -1,6 +1,6 @@
 void keyPressed() {
   if (key == ' ')
-    board.reset();
+    gameBoard.reset();
   gameOver = false;
 }
 
@@ -8,35 +8,15 @@ boolean gameOver = false;
 void mouseClicked() {
   if (gameOver) 
     return;
-  if (turns.getCurrentPlayer() == playerTwo)
-    return;
-
-  int clickedRegion = getClickedSquare();
-  if (!board.squareAvailable(clickedRegion))
-    return;
-
-  board.setValue(clickedRegion, "X");
-  board.updateBoard();
-
-  Player winPlayer = winLose.playerWon();
-  if (winPlayer != null) {
-    textAlign(CENTER, CENTER);
-    fill (0, 255, 0);
-    if (winPlayer.id == 2) 
-      fill(255, 0, 0);
-    textSize(50);
-    text("Player "+ winPlayer.id + " has won!", width/2, height/2);
-    gameOver = true;
-    return;
+  if (turns.getCurrentPlayer() == playerTwo) {
+    computer.playBestMove(gameBoard.board);
+  } else {
+    int clickedRegion = getClickedSquare();
+    if (!gameBoard.squareAvailable(clickedRegion))
+      return;
   }
-  if (board.boardIsFull()) {
-    fill(255, 230, 0);
-    textSize(50);
-    text("Tie!", width/2, height/2);
-    gameOver = true;
-    return;
-  }
-
+  gameBoard.setValue(getClickedSquare(), "X");
+  gameBoard.updateBoard();
   turns.togglePlayer();
 }
 

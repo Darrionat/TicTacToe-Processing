@@ -19,6 +19,14 @@ public class GameBoard {
   public String[] getBoard() {
     return board;
   }
+  
+  public void setBoard(String[] board){
+     this.board = board; 
+  }
+  
+  void setValue(int squareNo, String value) {
+    board[squareNo-1] = value;
+  }
 
   public boolean squareAvailable(int square) {
     return board[square-1].equals("");
@@ -45,7 +53,7 @@ public class GameBoard {
     }
   }
 
-  public boolean boardIsFull() {
+  public boolean boardIsFull(String[] board) {
     for (String square : board) {
       if (square.equals(""))
         return false;
